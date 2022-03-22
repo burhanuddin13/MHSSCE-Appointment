@@ -12,6 +12,7 @@ public class ViewAppointment extends AppCompatActivity {
 
     ArrayList<AppointmentData> appointmentData;
     AppointmentAdapter appointmentAdapter;
+    AppointmentHelper dbHandler;
     RecyclerView relativeLayout;
 
     @Override
@@ -20,7 +21,6 @@ public class ViewAppointment extends AppCompatActivity {
         setContentView(R.layout.activity_view_appointment);
 
         appointmentData = new ArrayList<>();
-        AppointmentHelper dbHandler;
         dbHandler = new AppointmentHelper(ViewAppointment.this);
 
         appointmentData = dbHandler.readAppointments();

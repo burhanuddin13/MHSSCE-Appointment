@@ -39,20 +39,21 @@ public class MainActivity extends AppCompatActivity
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false); //Boolean to store Dark Mode state
 
-        txtDate=(TextView) findViewById(R.id.txtDate);
-        btnDate=(ImageButton) findViewById(R.id.btnDate);
-        btnDate.setOnClickListener(v -> showDatePickerDialog());
+        txtDate=(TextView) findViewById(R.id.txtDate); //References Date TextView
+        btnDate=(ImageButton) findViewById(R.id.btnDate); //References Date Picker Button
+        btnDate.setOnClickListener(v -> showDatePickerDialog()); //Calling Function
 
-        txtTime=(TextView) findViewById(R.id.txtTime);
-        btnTime=(ImageButton) findViewById(R.id.btnTime);
-        btnTime.setOnClickListener(v -> showTimePickerDialog());
+        txtTime=(TextView) findViewById(R.id.txtTime); //References Time TextView
+        btnTime=(ImageButton) findViewById(R.id.btnTime); //References Time Picker Button
+        btnTime.setOnClickListener(v -> showTimePickerDialog()); //Calling Function
 
-        edtName=(EditText) findViewById(R.id.edtName);
-        btnBook=(Button) findViewById(R.id.btnBook);
-        btnBook.setOnClickListener(v -> insertIntoTable());
+        edtName=(EditText) findViewById(R.id.edtName); //References Name EditText
+        btnBook=(Button) findViewById(R.id.btnBook); //References Book Appointment Button
+        btnBook.setOnClickListener(v -> insertIntoTable()); //Calling Function
 
-        btnView=(Button) findViewById(R.id.btnView);
+        btnView=(Button) findViewById(R.id.btnView); //References View Appointment Button
         btnView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ViewAppointment.class)));
+        //Start ViewAppointment Activity
 
         AII = (ImageView) findViewById(R.id.AII); //References AII Logo
         AII.setOnClickListener(v -> { //When "AII" is clicked
@@ -74,30 +75,35 @@ public class MainActivity extends AppCompatActivity
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
+    //Function to insert Values into Database
     private void insertIntoTable() {
         Name=edtName.getText().toString().trim();
-        if(Name.isEmpty()){
+        if(Name.isEmpty()){ //Checking if Name isn't entered
             edtName.setError("Please Enter Faculty Name");
             edtName.requestFocus();
         }
-        else if(Date.isEmpty()){
+        else if(Date.isEmpty()){ //Checking if Date isn't Selected
             txtDate.setError("Please Select Date");
             txtDate.requestFocus();
         }
-        else if(Time.isEmpty()){
+        else if(Time.isEmpty()){ //Checking if Time isn't Selected
             txtTime.setError("Please Select Time");
             txtTime.requestFocus();
         }
         else {
             AppointmentHelper app = new AppointmentHelper(this);
-            app.insertIntoTable(Name, Date, Time);
+            app.insertIntoTable(Name, Date, Time); //Calling Function
             Toast.makeText(MainActivity.this, R.string.success, Toast.LENGTH_SHORT).show();
+            //Clearing all fields
             txtDate.setText("");
             txtTime.setText("");
             edtName.setText("");
+            Date="";
+            Time="";
         }
     }
 
+    //Function to show Date Picker when prompted
     private void showDatePickerDialog(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, this,
                 Calendar.getInstance().get(Calendar.YEAR),
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity
         datePickerDialog.show();
     }
 
+    //Function to show Time Picker when prompted
     private void showTimePickerDialog() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, this,
                 Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
@@ -113,6 +120,7 @@ public class MainActivity extends AppCompatActivity
         timePickerDialog.show();
     }
 
+    //Function is called Date is Selected
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String Day, Month;
@@ -125,6 +133,7 @@ public class MainActivity extends AppCompatActivity
         txtDate.setText(display);
     }
 
+    //Function is called Time is Selected
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         String Hour, Minute;
