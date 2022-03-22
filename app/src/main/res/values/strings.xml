@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MHSSCE Appointment</string>
+    <string name="bookApp">Book Appointment</string>
+    <string name="viewApp">View All Appointments</string>
+    <string name="success">Appointment Booked Successful</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="aii">Anjuman-i-Islam Logo</string>
+    <string name="nameHint">Enter Faculty Name</string>
+</resources>
